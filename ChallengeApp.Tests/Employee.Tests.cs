@@ -14,7 +14,6 @@ namespace ChallengeApp.Tests
             employee.AddGrade(3);
             employee.AddGrade(2);
 
-
             //act
             var statistics = employee.GetStatistics();
 
@@ -32,7 +31,6 @@ namespace ChallengeApp.Tests
             employee.AddGrade(2);
             employee.AddGrade(3);
             employee.AddGrade(2);
-
 
             //act
             var statistics = employee.GetStatistics();
@@ -52,17 +50,12 @@ namespace ChallengeApp.Tests
             employee.AddGrade(3);
             employee.AddGrade(2);
 
-
             //act
             var statistics = employee.GetStatistics();
 
             //assert
             Assert.AreEqual(Math.Round(3.2, 2), Math.Round(statistics.Average, 2));
         }
-
-
-
-
 
     }
 }
