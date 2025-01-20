@@ -401,3 +401,4 @@ FodyWeavers.xsd
 /ChallengeApp/User.cs
 /ChallengeApp.Tests/TypeTests.cs
 /ChallengeApp.Tests/UserTest.cs
+/ChallengeApp/Emplyee.cs

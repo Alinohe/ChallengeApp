@@ -1,61 +1,93 @@
-﻿
-namespace ChallengeApp.Tests
+﻿namespace ChallengeApp.Tests
 {
     public class Tests
     {
+
+
         [Test]
-        public void WhenGetStatisticsCalled_ShouldReturnCorrectMax()
+             public void WhenAddAnyEmployeeScores_ThenCorrectMinValue()
         {
-            //arrange
-            var employee = new Employee("Julia", "Nowak");
-            employee.AddGrade(5);
-            employee.AddGrade(4);
-            employee.AddGrade(2);
+            // Arrange
+            var employee = new EmployeeInMemory("Jan", "Dêbski");
+
             employee.AddGrade(3);
-            employee.AddGrade(2);
+            employee.AddGrade(0);
+            employee.AddGrade(1);
+            employee.AddGrade(100);
+            employee.AddGrade(80);
 
-            //act
+            // Act
             var statistics = employee.GetStatistics();
+            //statistics.Min = 99; // Mo¿na "zepsuæ" test, bo wszystkie propercje w klasie
+            // Statistics maj¹ publiczny set. Jest tak, bo zmienne Min, Max, Average
+            // s¹ ustawiane w klasie Employee.
+            // Na razie nie wiem jak to mo¿na naprawiæ - nie zagl¹da³em jeszcze do lekcji
+            // dnia 10
+            // statistics.Min = 99;
 
-            //assert
-            Assert.AreEqual(5, statistics.Max);
+            // Assert
+            //Assert.That(statistics.Min, Is.EqualTo(0f)); // Poprawione po Warning NUnit2005 
+            Assert.That(statistics.Min, Is.EqualTo(0f));
         }
 
         [Test]
-        public void WhenGetStatisticsCalled_ShouldReturnCorrectMin()
+        public void WhenAddEmployeeScores_ThenCorrectMaxValue()
         {
-            //arrange
-            var employee = new Employee("Julia", "Nowak");
-            employee.AddGrade(5);
-            employee.AddGrade(4);
-            employee.AddGrade(2);
+            // Arrange
+            var employee = new EmployeeInMemory("Karol", "Grzyb");
+
             employee.AddGrade(3);
-            employee.AddGrade(2);
+            employee.AddGrade(0);
+            employee.AddGrade(1);
+            employee.AddGrade(40);
+            employee.AddGrade(100);
+            employee.AddGrade(80);
 
-            //act
+            // Act
             var statistics = employee.GetStatistics();
-
-            //assert
-            Assert.AreEqual(2, statistics.Min);
+            // Assert
+            //Assert.That(statistics.Max, Is.EqualTo(3f));
+            Assert.That(statistics.Max, Is.EqualTo(100f));
         }
 
         [Test]
-        public void WhenGetStatisticsCalled_ShouldReturnCorrectAverage()
-        {
-            //arrange
-            var employee = new Employee("Julia", "Nowak");
-            employee.AddGrade(5);
-            employee.AddGrade(4);
-            employee.AddGrade(2);
-            employee.AddGrade(3);
-            employee.AddGrade(2);
 
-            //act
+        public void WhenAddEmployeeScores_ThenCorrectAvgValue()
+        {
+            // Arrange
+            var employee = new EmployeeInMemory("Hanna", "Solska");
+
+            employee.AddGrade(3);
+            employee.AddGrade(30);
+            employee.AddGrade(0);
+            employee.AddGrade(1);
+            employee.AddGrade(100);
+
+            // Act
             var statistics = employee.GetStatistics();
 
-            //assert
-            Assert.AreEqual(Math.Round(3.2, 2), Math.Round(statistics.Average, 2));
+            // Assert
+            //Assert.That(statistics.Average, Is.EqualTo(1.33333337f));
+            // tutaj mia³em problem jak zapisaæ oczekiwan¹ wartoœæ 1.(3),
+            // ale pomóg³ mi nieudany test, który powiedzia³ czego oczekuje,
+            // a to zgadza³o siê z moj¹ intuicj¹ matematyczn¹ 1 . 3 na siedmiu miejscach
+            var value = Math.Round(statistics.Average, 2);
+            Assert.That(value, Is.EqualTo(43.33d));
         }
 
+        [Test]
+        public void WhenAddEmployeeScores_ThenCorrectAvgLetter()
+        {
+            // Arrange
+            var employee = new EmployeeInMemory("Anna","MIzian");
+            employee.AddGrade(30);
+            employee.AddGrade(0);
+            employee.AddGrade(100);
+
+            // Act
+            var statistics = employee.GetStatistics();
+            // Assert
+            Assert.That(statistics.AverageLetter, Is.EqualTo('C'));
+        }
     }
 }
